@@ -1,4 +1,4 @@
-function bruteForce(text: string, pattern: string): number[] {
+export function bruteForce(text: string, pattern: string): number[] {
   const textLength = text.length;
   const patternLength = pattern.length;
   const positions: number[] = [];
@@ -17,4 +17,3 @@ function bruteForce(text: string, pattern: string): number[] {
   return positions;
 }
 
-export default bruteForce;

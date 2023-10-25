@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Performance analysis of subsequence string matching algorithms
+    </title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      ul {
+        list-style: none;
+        background-color: #333;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 20px;
+        display: block;
+      }
+
+      a:hover {
+        background-color: #555;
+      }
+
+      form {
+        margin: 10px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      select,
+      input[type='text'],
+      input[type='submit'] {
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #333;
+        border-radius: 4px;
+      }
+
+      input[type='submit'] {
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li><a href="/status">Status</a></li>
+      <li>
+        <form
+          id="algorithmForm"
+          method="get"
+          onsubmit="handleFormSubmission(event)"
+        >
+          <label for="algorithm">Select Algorithm:</label>
+          <select id="algorithm" name="algorithm">
+            <option value="bruteforce">Brute Force</option>
+          </select>
+          <input
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Search Term"
+          />
+          <input type="submit" value="Submit" />
+        </form>
+      </li>
+    </ul>
+
+    <script>
+      function handleFormSubmission(event) {
+        event.preventDefault();
+        const algorithm = document.getElementById('algorithm');
+        const searchTerm = document.getElementById('search').value;
+
+        switch (algorithm.value) {
+          case 'bruteforce':
+            window.location.href = `/brute-force-algorithm?search=${searchTerm}`;
+            break;
+          default:
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
