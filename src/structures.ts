@@ -6,4 +6,4 @@ interface PDFSource {
   text: string;
 }
 
-export { PDFSource }
+export { PDFSource };

@@ -1,22 +1,17 @@
 function loop(
   iterations: number,
   delay: number,
-  cb: () => void,
-  finishCb: () => void,
+  cb: (iteration: number) => void,
 ): void {
   let counter = 0;
 
   function performIteration() {
     if (counter < iterations) {
       console.log(`Iteration ${counter + 1}`);
+      cb(counter);
       counter++;
-      cb();
 
       setTimeout(performIteration, delay);
-
-      if (counter === iterations - 1) {
-        finishCb();
-      }
     }
   }
 
@@ -24,4 +19,3 @@ function loop(
 }
 
 export default loop;
-

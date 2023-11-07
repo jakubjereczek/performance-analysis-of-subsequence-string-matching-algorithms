@@ -1,6 +1,6 @@
-import getSources from './utils/getSources';
-import mapSources from './utils/mapSources';
-import pdfToText from './utils/pdfToText';
+import getSources from "./utils/getSources";
+import mapSources from "./utils/mapSources";
+import pdfToText from "./utils/pdfToText";
 
 class TextCache {
   private static fullText: string | undefined;
