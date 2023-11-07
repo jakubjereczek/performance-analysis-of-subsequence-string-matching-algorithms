@@ -2,37 +2,29 @@ import express, { Request, Response } from "express";
 import TextCache from "./textCache";
 import { bruteForce } from "./algorithms";
 import path from "path";
-import loop from "./utils/loop";
-import measurePerformance from "./utils/measurePerformance";
-import MemoryMonitor from "./core/MemoryMonitor";
+import MonitorInstance from "./core/Monitor";
 const app = express();
 
 app.use(require("express-status-monitor")());
 
-/*
-todo
 // /brute-force-algorithm?search=wordterm
 app.get("/brute-force-algorithm", async (req: Request, res: Response) => {
   const fullText = await TextCache.getText();
 
-  MemoryMonitor.start();
-  loop(
-    1000,
-    10,
-    () => {
-      const fn = () => bruteForce(fullText, req.query.search as string);
-      const performance = measurePerformance(fn);
-      console.log("performance in ms", performance);
+  const monitorInstance = new MonitorInstance();
+  monitorInstance.init({
+    iterations: 100,
+    delay: 500,
+    callback: () => {
+      bruteForce(fullText, req.query.search as string);
     },
-    () => {
-      MemoryMonitor.calculateAverageMemoryUsage();
-      MemoryMonitor.stop();
+    onFinishCallback: (results) => {
+      console.log("results", results);
     },
-  );
+  });
 
   res.send("ok");
 });
-*/
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "../", "public", "index.html"));

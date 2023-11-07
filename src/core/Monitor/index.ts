@@ -50,6 +50,12 @@ class MonitorInstance {
       }
     });
   }
+
+  public dispose() {
+    this.cpuMonitor.clean();
+    this.memoryMonitor.clean();
+    this.performanceMonitor.clean();
+  }
 }
 
 export default MonitorInstance;
