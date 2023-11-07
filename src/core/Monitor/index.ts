@@ -9,7 +9,7 @@ interface MonitorInstanceInitArgs {
   iterations: number;
   delay: number;
   callback: () => void;
-  endCallback: (
+  onFinishCallback: (
     results: CPUMonitorStatistics &
       MemoryMonitorStatistics &
       PerformanceMonitorStatistics,
@@ -31,7 +31,7 @@ class MonitorInstance {
     iterations,
     delay,
     callback,
-    endCallback,
+    onFinishCallback,
   }: MonitorInstanceInitArgs) {
     loop(iterations, delay, (iteration) => {
       if (iteration === 0) {
@@ -42,6 +42,11 @@ class MonitorInstance {
 
       if (iteration === iterations - 1) {
         this.cpuMonitor.stop();
+        onFinishCallback({
+          ...this.cpuMonitor.getStatistics(),
+          ...this.performanceMonitor.getStatistics(),
+          ...this.memoryMonitor.getStatistics(),
+        });
       }
     });
   }
