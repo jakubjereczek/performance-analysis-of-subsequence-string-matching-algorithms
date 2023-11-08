@@ -3,6 +3,7 @@ import TextCache from "./textCache";
 import { bruteForce } from "./algorithms";
 import path from "path";
 import MonitorInstance from "./core/Monitor";
+import FileStream from "./core/FileStream";
 const app = express();
 
 app.use(require("express-status-monitor")());
@@ -11,14 +12,27 @@ app.use(require("express-status-monitor")());
 app.get("/brute-force-algorithm", async (req: Request, res: Response) => {
   const fullText = await TextCache.getText();
 
+  const { name, ...iterationInfo } = {
+    name: "Brute Force",
+    iterations: 1000,
+    delay: 500,
+  };
+
   const monitorInstance = new MonitorInstance();
   monitorInstance.init({
-    iterations: 100,
-    delay: 500,
+    ...iterationInfo,
     callback: () => {
       bruteForce(fullText, req.query.search as string);
     },
     onFinishCallback: (results) => {
+      const fileStream = new FileStream(`${name}.txt`);
+      fileStream.create();
+      fileStream.write(name.toUpperCase());
+      Object.entries(results).forEach((entry) => {
+        fileStream.write(`${entry[0]}: ${entry[1]}`);
+      });
+      fileStream.close();
+
       console.log("results", results);
     },
   });

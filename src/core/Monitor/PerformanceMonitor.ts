@@ -1,13 +1,13 @@
 import measurePerformance from "../../utils/measurePerformance";
 
 export interface PerformanceMonitorStatistics {
-  minPerformance: number;
-  maxPerformance: number;
-  averagePerformance: number;
+  minPerformance: string;
+  maxPerformance: string;
+  averagePerformance: string;
 }
 
 class PerformanceMonitor {
-  private performance: Array<number> = [];
+  private performances: Array<number> = [];
   private minPerformance: number = 0;
   private maxPerformance: number = 0;
 
@@ -19,27 +19,30 @@ class PerformanceMonitor {
     if (performance < this.minPerformance || this.minPerformance === 0) {
       this.minPerformance = performance;
     }
+    this.performances.push(performance);
   }
 
   public getStatistics(): PerformanceMonitorStatistics {
     const averagePerformance = this.calculateAveragePerformance();
     return {
-      minPerformance: this.minPerformance,
-      maxPerformance: this.maxPerformance,
-      averagePerformance,
+      minPerformance: this.minPerformance + " ms",
+      maxPerformance: this.maxPerformance + " ms",
+      averagePerformance: averagePerformance + " ms",
     };
   }
 
   private calculateAveragePerformance() {
-    const totalPerformance = this.performance.reduce(
+    const totalPerformance = this.performances.reduce(
       (acc, performance) => acc + performance,
       0,
     );
-    return (totalPerformance / this.performance.length) * 100;
+
+    return totalPerformance / this.performances.length;
   }
 
   public clean() {
-    this.performance = [];
+    console.log("clean");
+    this.performances = [];
     this.minPerformance = 0;
     this.maxPerformance = 0;
   }

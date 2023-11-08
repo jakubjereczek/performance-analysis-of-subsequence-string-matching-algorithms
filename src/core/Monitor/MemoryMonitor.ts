@@ -1,10 +1,12 @@
+import { bytesToMegabytes } from "../../utils/number";
+
 export interface MemoryMonitorStatistics {
-  minMemoryUsage: number;
-  maxMemoryUsage: number;
-  minHeapUsage: number;
-  maxHeapUsage: number;
-  averageMemoryAvg: number;
-  heapMemoryAvg: number;
+  minMemoryUsage: string;
+  maxMemoryUsage: string;
+  minHeapUsage: string;
+  maxHeapUsage: string;
+  averageMemoryAvg: string;
+  heapMemoryAvg: string;
 }
 
 class MemoryMonitor {
@@ -44,13 +46,14 @@ class MemoryMonitor {
     );
 
     return {
-      minMemoryUsage: this.minMemoryUsage,
-      maxMemoryUsage: this.maxMemoryUsage,
-      minHeapUsage: this.minHeapUsage,
-      maxHeapUsage: this.maxHeapUsage,
+      minMemoryUsage: bytesToMegabytes(this.minMemoryUsage) + "MB",
+      maxMemoryUsage: bytesToMegabytes(this.maxMemoryUsage) + "MB",
+      minHeapUsage: bytesToMegabytes(this.minHeapUsage) + "MB",
+      maxHeapUsage: bytesToMegabytes(this.maxHeapUsage) + "MB",
       averageMemoryAvg:
-        totalMemoryUsage / this.memoryUsage.length / (1024 * 1024),
-      heapMemoryAvg: totalHeapUsage / this.memoryUsage.length / (1024 * 1024),
+        bytesToMegabytes(totalMemoryUsage / this.memoryUsage.length) + "MB",
+      heapMemoryAvg:
+        bytesToMegabytes(totalHeapUsage / this.memoryUsage.length) + "MB",
     };
   }
 
