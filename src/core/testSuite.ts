@@ -18,7 +18,7 @@ async function testSuite({
   resolveFn,
 }: TestSuiteArgs) {
   const { ...iterationInfo } = {
-    iterations: 10,
+    iterations: 1000,
     delay: 300,
   };
 

@@ -1,0 +1,13 @@
+RABIN KARP ALGORITHM (1000 iterations were performed)
+minCPUUsage: 3.74%
+maxCPUUsage: 40.47%
+averageCPUUsage: 8.44%
+minPerformance: 146.2864 ms
+maxPerformance: 223.1579 ms
+averagePerformance: 159.56131539999984 ms
+minMemoryUsage: 147.86MB
+maxMemoryUsage: 148.95MB
+minHeapUsage: 123.00MB
+maxHeapUsage: 124.08MB
+averageMemoryAvg: 148.38MB
+heapMemoryAvg: 123.50MB
